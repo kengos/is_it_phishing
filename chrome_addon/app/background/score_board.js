@@ -1,57 +1,46 @@
 function ScoreBoard(params) {
   this.scriptsHostnames = params.scripts;
+  this.location = params.location;
+
+  this.whoisValidator = new WhoisValidator;
+  this.hostnameValidator = new HostnameValidator;
+
 };
 
 ScoreBoard.prototype = {
   constructor: ScoreBoard,
 
-  calculate: function(callback) {
-    this.init();
+  calculate: function() {
+    console.log('ScoreBoard#calculate');
     this.validateHostname();
-
-    setTimeout(function() {
-      if(this.complete()) {
-        console.log("comp");
-        callback(this.score, this.details);
-      }
-    }.bind(this), 100);
-  },
-
-  init: function() {
-    this.score = 0;
-    this.details = {};
+    this.validateWhois();
   },
 
   validateHostname: function() {
-    var validator = new HostnameValidator;
-    validator.validate();
-    this.details['script'] = validator.getDetails();
-    this.score += validator.getScore();
+    this.hostnameValidator.validate();
+    this.score += this.hostnameValidator.getScore();
+  },
+
+  validateWhois: function() {
+    this.whoisValidator.validate(this.location.hostname);
   },
 
   complete: function() {
-    return true;
+    console.log(this.whoisValidator.isCompleted());
+    return this.whoisValidator.isCompleted();
   },
 
-  whois: function(hostname) {
-    this.whoisState = false;
-    $.ajax({
-      url: 'http://www.whoisxmlapi.com/whoisserver/WhoisService',
-      dataType: 'jsonp',
-      data: {
-        domainName: hostname,
-        outputFormat: 'json'
-      }
-    }).done(function(data) {
-      this.whoisData = {state: true, data: data};
-    }).fail(function(data){
-      this.whoisData = {state: false, data: {}};
-    }).always(function() {
-      self.whoisState = true;
-    });
+  buildDetails: function() {
+    return {
+      "script": this.hostnameValidator.getDetails(),
+      "whois": this.whoisValidator.getResponse()
+    }
   },
 
-  getScore: function() {
-    return this.score;
+  buildScore: function() {
+    var score = 0;
+    score += this.hostnameValidator.getScore();
+    score += this.whoisValidator.getScore();
+    return score;
   }
 }

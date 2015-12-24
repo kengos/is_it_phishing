@@ -16,6 +16,7 @@
     "scripts": [
       "app/vendor/jquery-2.1.4.min.js",
       "app/background/hostname_validator.js",
+      "app/background/whois_validator.js",
       "app/background/score_board.js",
       "app/background/main.js"
     ]

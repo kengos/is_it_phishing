@@ -3,17 +3,17 @@
     console.log('onMessage');
     console.log(response);
 
-    var body = document.querySelector('body');
-    var oldContent = document.createElement("div")
-    oldContent.style.display = 'none';
-    oldContent.innerHTML = body.innerHTML;
+    // var body = document.querySelector('body');
+    // var oldContent = document.createElement("div")
+    // oldContent.style.display = 'none';
+    // oldContent.innerHTML = body.innerHTML;
 
-    var overlay = document.createElement('div');
-    overlay.setAttribute('id', 'is-it-phishing-overlay');
-    overlay.textContent = 'overlay';
-    body.innerHTML = '';
-    body.appendChild(overlay);
-    body.appendChild(oldContent);
+    // var overlay = document.createElement('div');
+    // overlay.setAttribute('id', 'is-it-phishing-overlay');
+    // overlay.textContent = 'overlay';
+    // body.innerHTML = '';
+    // body.appendChild(overlay);
+    // body.appendChild(oldContent);
   });
 
   var collectSrc = function(objects) {
