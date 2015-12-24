@@ -1,0 +1,41 @@
+{
+  "functions": {
+    "ip": {
+      "custom": {
+        "excludePatterns": [],
+        "envVars": []
+      },
+      "handler": "modules/dns/ip/handler.handler",
+      "timeout": 6,
+      "memorySize": 1024,
+      "eventSourceArn": "",
+      "endpoints": [
+        {
+          "path": "dns/ip",
+          "method": "GET",
+          "authorizationType": "none",
+          "apiKeyRequired": false,
+          "requestParameters": {
+            "integration.request.querystring.integrationQueryParam": "method.request.querystring.hostname"
+          },
+          "requestTemplates": {
+            "application/json": "{\"hostname\":\"$input.params('hostname')\"}"
+          },
+          "responses": {
+            "400": {
+              "statusCode": "400"
+            },
+            "default": {
+              "statusCode": "200",
+              "responseParameters": {},
+              "responseModels": {},
+              "responseTemplates": {
+                "application/json": ""
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

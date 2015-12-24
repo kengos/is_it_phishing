@@ -11,12 +11,12 @@
 var ServerlessHelpers = require('serverless-helpers-js').loadEnv();
 
 // Require Logic
-var whois = require('../lib/whois');
+var lib = require('../lib/ip');
 
 // Lambda Handler
 module.exports.handler = function(event, context) {
 
-  whois.respond(event, function(error, response) {
+  lib.respond(event, function(error, response) {
     return context.done(error, response);
   });
 };
