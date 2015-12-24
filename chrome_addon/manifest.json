@@ -1,0 +1,44 @@
+{
+  "manifest_version": 2,
+  "name": "フィッシングサイトチェッカー",
+  "version": "1.0",
+  "description": "フィッシングサイトかどうかチェックするよ",
+  "icons" : {
+    "128": "images/icons/police.png"
+  },
+  "permissions": [
+    "tabs",
+    "https://*/*/",
+    "http://*/*/",
+    "storage"
+  ],
+  "background": {
+    "scripts": [
+      "app/vendor/jquery-2.1.4.min.js",
+      "app/background/hostname_validator.js",
+      "app/background/score_board.js",
+      "app/background/main.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "include_globs": [],
+      "exclude_matches": [],
+      "match_about_blank": false,
+      "js": [
+        "app/content/main.js"
+      ]
+    }
+  ],
+  "browser_action": {
+    "default_popup": "html/popup.html",
+    "default_icon": "images/icons/police.png"
+  },
+  "web_accessible_resources": [
+    "app/content/overlay.html"
+  ]
+}

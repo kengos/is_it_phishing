@@ -1,0 +1,21 @@
+{
+  "name": "phishing-app",
+  "version": "0.0.1",
+  "profile": "serverless-0",
+  "location": "https://github.com/...",
+  "author": "",
+  "description": "",
+  "domain": "phishing-app",
+  "stages": {
+    "development": [
+      {
+        "region": "ap-northeast-1",
+        "iamRoleArnLambda": "arn:aws:iam::053822125871:role/phishing-app-development-r-IamRoleLambda-1DCZUE73M757M",
+        "regionBucket": "serverless.apnortheast1.phishing-app",
+        "restApiId": "9kxbbcoehg"
+      }
+    ]
+  },
+  "custom": {},
+  "plugins": []
+}

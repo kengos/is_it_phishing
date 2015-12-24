@@ -1,0 +1,5 @@
+{
+  "whois": {
+    "hostname": "$input.params('hostname')"
+  }
+}
