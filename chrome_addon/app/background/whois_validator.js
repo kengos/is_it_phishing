@@ -1,9 +1,12 @@
 function WhoisValidator() {
   this.state = 0;
+  this.score = undefined;
+  this.messages = undefined;
 };
 
 WhoisValidator.API_END_POINT = "https://9kxbbcoehg.execute-api.ap-northeast-1.amazonaws.com/development/dns/whois";
-WhoisValidator.EMAIL_PATTERN = new RegExp(".*@gmail.com|.*@yahoo.com|.*@yahoo.co.jp|.*@183.com");
+WhoisValidator.EMAIL_PATTERN = new RegExp("@(gmail.com|yahoo.com|yahoo.co.jp|163.com|qq.com|hotmail.com|sina.com)$");
+WhoisValidator.COUNTRY_PATTERN = new RegExp("CN|China|TW|Taiwan");
 
 WhoisValidator.prototype = {
   constructor: WhoisValidator,
@@ -36,8 +39,39 @@ WhoisValidator.prototype = {
     return this.state == 2;
   },
 
-  getResponse: function() {
-    return this.response;
+  getScore: function() {
+    if(this.score === undefined) {
+      this.buildResult();
+    }
+    return this.score;
+  },
+
+  getMessages: function() {
+    if(this.messages === undefined) {
+      this.buildResult();
+    }
+    return this.messages;
+  },
+
+  buildResult: function() {
+    this.score = 0;
+    this.messags = [];
+
+    var country = this.getRegistrantCountry();
+    if(country !== '') {
+      if(WhoisValidator.COUNTRY_PATTERN.test(country)) {
+        score += 20;
+        messages.push("ドメインの登録国が " + country + " です");
+      }
+    }
+
+    var email = this.getRegistrantEmail();
+    if(email !== '') {
+      if(WhoisValidator.EMAIL_PATTERN.test(email)) {
+        score += 30;
+        messages.push("ドメインの登録者メールアドレスが " + email + " です");
+      }
+    }
   },
 
   getRegistrantCountry: function() {
@@ -46,23 +80,6 @@ WhoisValidator.prototype = {
 
   getRegistrantEmail: function() {
     return this.response.registrantEmail || '';
-  },
-
-  getScore: function() {
-    var score = 0;
-    var country = this.getRegistrantCountry();
-    if(country == 'CN') {
-      score += 20;
-    } else if(country == 'TW') {
-      score += 15;
-    }
-    var email = this.getRegistrantEmail();
-
-    if(email !== '') {
-      if(WhoisValidator.EMAIL_PATTERN.test(email)) {
-        score += 30;
-      }
-    }
-    return score;
   }
+
 };

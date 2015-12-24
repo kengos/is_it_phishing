@@ -33,7 +33,7 @@ ScoreBoard.prototype = {
   buildDetails: function() {
     return {
       "script": this.hostnameValidator.getDetails(),
-      "whois": this.whoisValidator.getResponse()
+      "whois": this.whoisValidator.getMessages()
     }
   },
 
