@@ -1,52 +1,48 @@
 function HostnameValidator() {
-  this.invalids = [];
+  this.errorHosts = [];
+  this.score = 0;
+  this.messages = [];
 };
+
+HostnameValidator.ERROR_HOSTS = [
+  '51\.la',
+  'baidu'
+];
 
 HostnameValidator.prototype = {
   constructor: HostnameValidator,
 
   validate: function(hostnames) {
-    this.invalids = [].filter.call((hostnames || []), function(hostname) {
-      var reg = new RegExp(ResourceBoard.INVALID_HOSTANEMS.join("|"));
+    var reg = new RegExp(HostnameValidator.ERROR_HOSTS.join('|'));
+    this.errorHosts = [].filter.call((hostnames || []), function(hostname) {
       return reg.test(hostname);
     });
-    return this.invalids.length == 0;
-  },
-
-  getInvalidHostnames: function() {
-    return this.invalids;
-  },
-
-  getDetails: function() {
-    return {
-      status: this.getStatus(),
-      score: this.getScore(),
-      errors: this.invalids
-    };
-  },
-
-  getStatus: function() {
-    if(this.invalids.length == 0) {
-      return "OK";
-    } else if(this.invalids.length == 1) {
-      return "WARN";
-    } else {
-      return "ERROR";
-    }
+    this.buildResult();
+    return this.errorHosts.length == 0;
   },
 
   getScore: function() {
-    if(this.invalids.length == 0) {
-      return 0;
-    } else if(this.invalids.length == 1) {
-      return 10;
-    } else {
-      return 30;
-    }
+    return this.score;
   },
 
-  INVALID_HOSTANEMS: [
-    '.*51\.la',
-    '.*baidu.*'
-  ]
+  getMessages: function() {
+    return this.messages;
+  },
+
+  buildResult: function() {
+    this.score = 0;
+    this.messages = [];
+
+    if(this.errorHosts.length == 0) {
+      return;
+    }
+
+    if(this.errorHosts.length == 1) {
+      this.score += 10;
+      this.messages.push(this.errorHosts[0] + " の javascript/iframe が呼び出されています。");
+    } else {
+      this.score += 20;
+      this.messages.push(this.errorHosts.join(", ") + " の javascript/iframe が呼び出されています。");
+    }
+  }
 }

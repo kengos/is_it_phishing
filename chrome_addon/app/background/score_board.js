@@ -4,43 +4,35 @@ function ScoreBoard(params) {
 
   this.whoisValidator = new WhoisValidator;
   this.hostnameValidator = new HostnameValidator;
-
+  this.googleValidator = new GoogleValidator;
 };
 
 ScoreBoard.prototype = {
   constructor: ScoreBoard,
 
   calculate: function() {
-    console.log('ScoreBoard#calculate');
-    this.validateHostname();
-    this.validateWhois();
-  },
-
-  validateHostname: function() {
-    this.hostnameValidator.validate();
-    this.score += this.hostnameValidator.getScore();
-  },
-
-  validateWhois: function() {
+    this.hostnameValidator.validate(this.scriptsHostnames);
+    this.googleValidator.validate(this.location.hostname);
     this.whoisValidator.validate(this.location.hostname);
   },
 
   complete: function() {
-    console.log(this.whoisValidator.isCompleted());
-    return this.whoisValidator.isCompleted();
+    return this.whoisValidator.isCompleted() && this.googleValidator.isCompleted();
   },
 
-  buildDetails: function() {
-    return {
-      "script": this.hostnameValidator.getDetails(),
-      "whois": this.whoisValidator.getMessages()
-    }
+  getMessages: function() {
+    var a = this.hostnameValidator.getMessages() || [];
+    var b = this.whoisValidator.getMessages() || [];
+    var c = this.googleValidator.getMessages() || [];
+
+    return a.concat(b).concat(c);
   },
 
-  buildScore: function() {
+  getScore: function() {
     var score = 0;
     score += this.hostnameValidator.getScore();
     score += this.whoisValidator.getScore();
+    score += this.googleValidator.getScore();
     return score;
   }
 }

@@ -1,15 +1,15 @@
 /**
  * Lib
  */
- var Whois = require('node-whois');
- var ChangeCase = require('change-case');
+ var whois = require('node-whois');
+ var changeCase = require('change-case');
 
 module.exports.respond = function(event, cb) {
   if(event.hostname === undefined) {
     return cb(new Error("hostname is required"), null);
   }
 
-  Whois.lookup(event.hostname, function(err, whoisText) {
+  whois.lookup(event.hostname, function(err, whoisText) {
     if (err) {
       return cb(err, null);
     }
@@ -24,7 +24,7 @@ module.exports.respond = function(event, cb) {
       });
       lines.forEach(function(line) {
         var parts = line.split(": ");
-        var key = ChangeCase.camelCase(parts[0]);
+        var key = changeCase.camelCase(parts[0]);
         response[key] = parts[1];
       });
     }
