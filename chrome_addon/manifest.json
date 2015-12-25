@@ -15,6 +15,7 @@
   "background": {
     "scripts": [
       "app/vendor/jquery-2.1.4.min.js",
+      "app/background/session_cache_handler.js",
       "app/background/google_validator.js",
       "app/background/hostname_validator.js",
       "app/background/whois_validator.js",

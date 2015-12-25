@@ -9,12 +9,22 @@ GoogleValidator.prototype = {
   constructor: GoogleValidator,
 
   validate: function(hostname) {
+    var key = "google_" + hostname;
+    var response = SessionCacheHandler.instance.get("google_" + hostname);
+    if(response !== null) {
+      this.response = response;
+      this.buildResult();
+      this.state = 1;
+      return;
+    }
+
     var self = this;
     $.ajax({
       type: 'GET',
       url: 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=site:' + hostname,
       dataType : "json"
     }).done(function(response){
+      SessionCacheHandler.instance.set(key, response);
       self.response = response;
     }).fail(function(response){
       self.response = response;
