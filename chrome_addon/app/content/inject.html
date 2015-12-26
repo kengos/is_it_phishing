@@ -1,36 +1,44 @@
 <div id="phishing-injection">
   <style>
     body {
-      background-color: #f0f0f0;
+      background: none;
+      background-color: #f0f0f0 !important;
       color: #333;
     }
     * {
       box-sizing: border-box;
     }
     #phishing-injection {
-      width: 800px;
-      height: 500px;
-      margin: 50px auto;
-      padding: 10px;
-      background-color: #fff;
-      border-radius: 6px;
-      border: 1px solid #d8d8d8;
+      display: block !important;
+      width: 800px !important;
+      height: 500px !important;
+      margin: 50px auto !important;
+      padding: 10px !important;
+      background-color: #fff !important;
+      border-radius: 6px !important;
+      border: 1px solid #d8d8d8 !important;
     }
     #phishing-injection h2 {
-      padding: 0 0 0.3em 0;
-      margin: 0.83em 0;
-      font-size: 1.75em;
-      line-height: 1.225;
+      padding: 0 0 0.3em 0 !important;
+      margin: 0.83em 0 !important;
+      font-size: 1.75em !important;
+      line-height: 1.225 !important;
       border: none;
-      border-bottom: 1px solid #eee;
-      text-align: center;
-      color: #aa6708;
+      border-bottom: 1px solid #eee !important;
+      text-align: center !important;
+      color: #aa6708 !important;
     }
-    #phishing-injection ul {
-      margin: 0 0 0 2em;
-      padding: 0 0 0 2em;
-      line-height: 1.8;
-      font-size: 1.25em;
+    ul#phishing-injection-messages {
+      margin: 0 0 0 2em !important;
+      padding: 0 0 0 2em !important;
+      line-height: 1.8 !important;
+      font-size: 1.25em !important;
+    }
+    ul#phishing-injection-messages li {
+      list-style-type: disc !important;
+      font-size: 20px !important;
+      line-height: 36px !important;
+      height: 36px !important;
     }
     #phishing-injection-bottons {
       margin: 1em 0;
@@ -41,15 +49,10 @@
     <h2>このサイトはフィッシングサイトの疑いがあります。</h2>
     <div id="phishing-injection-message-box">
       <ul id="phishing-injection-messages">
-        <li>ああああああああ</li>
-        <li>いいいいいいいい</li>
-        <li>うううううううう</li>
-        <li>ええええええええ</li>
-        <li>おおおおおおおお</li>
       </ul>
     </div>
     <div id="phishing-injection-bottons">
-      <a href="#" class="js-do-not-display">このページでは表示しない</a>
+      <a href="#" id="js-do-not-display">このページでは表示しない</a>
     </div>
   </div>
 </div>
