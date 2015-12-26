@@ -5,7 +5,7 @@
  var changeCase = require('change-case');
 
 module.exports.respond = function(event, cb) {
-  if(event.hostname === undefined) {
+  if(event.hostname === '') {
     return cb(new Error("hostname is required"), null);
   }
 

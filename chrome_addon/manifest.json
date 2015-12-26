@@ -1,12 +1,13 @@
 {
   "manifest_version": 2,
-  "name": "フィッシングサイトチェッカー",
+  "name": "フィッシングサイトをブロックするツール(仮)",
   "version": "1.0",
-  "description": "フィッシングサイトかどうかチェックするよ",
+  "description": "フィッシングサイトをブロックするツールです。シズオカアプリコンテスト出品作品",
   "icons" : {
     "128": "images/icons/police.png"
   },
   "permissions": [
+    "webRequest",
     "tabs",
     "https://*/*/",
     "http://*/*/",
@@ -16,6 +17,8 @@
     "scripts": [
       "app/vendor/jquery-2.1.4.min.js",
       "app/background/session_cache_handler.js",
+      "app/background/web_request_handler.js",
+      "app/background/ip_validator.js",
       "app/background/google_validator.js",
       "app/background/hostname_validator.js",
       "app/background/whois_validator.js",
@@ -36,12 +39,5 @@
         "app/content/main.js"
       ]
     }
-  ],
-  "browser_action": {
-    "default_popup": "html/popup.html",
-    "default_icon": "images/icons/police.png"
-  },
-  "web_accessible_resources": [
-    "app/content/overlay.html"
   ]
 }

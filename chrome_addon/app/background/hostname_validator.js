@@ -36,13 +36,7 @@ HostnameValidator.prototype = {
     if(this.errorHosts.length == 0) {
       return;
     }
-
-    if(this.errorHosts.length == 1) {
-      this.score += 10;
-      this.messages.push(this.errorHosts[0] + " の javascript/iframe が呼び出されています。");
-    } else {
-      this.score += 20;
-      this.messages.push(this.errorHosts.join(", ") + " の javascript/iframe が呼び出されています。");
-    }
+    this.score += 20;
+    this.messages.push(this.errorHosts.join(", ") + " の javascript/iframe が呼び出されています。");
   }
 }

@@ -1,7 +1,7 @@
 var dns = require('dns');
 
 module.exports.respond = function(event, cb) {
-  if(event.hostname === undefined) {
+  if(event.hostname === '') {
     return cb(new Error("hostname is required"), null);
   }
 
@@ -10,8 +10,6 @@ module.exports.respond = function(event, cb) {
       return cb(err, null);
     }
 
-    var response = JSON.stringify(addresses);
-
-    return cb(null, response);
+    return cb(null, addresses);
   });
 };

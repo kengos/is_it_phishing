@@ -37,8 +37,6 @@
     });
   }
 
-  var doc = document.querySelector('body').textContent;
-
   // スクリプト hostnameを取得していく
   var scripts = collectSrc(document.querySelectorAll('script[src]'));
   // iframe hostnameを取得していく
@@ -46,7 +44,6 @@
 
   chrome.runtime.sendMessage({
     location: window.location,
-    doc: doc,
     scripts: scripts.concat(iframes)
   });
 
